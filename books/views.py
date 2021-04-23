@@ -28,13 +28,6 @@ class BookViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Destr
         queryset = queryset.filter(**filters)
         return queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        print(serializer.data)
-        data = {'body': serializer.data['body']}
-        return Response(serializer.data['body'])
-
 
 class ReadBookViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = BookEntity.objects.all()
@@ -43,6 +36,5 @@ class ReadBookViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        print(serializer.data)
         data = serializer.data['body']
         return Response(data)
